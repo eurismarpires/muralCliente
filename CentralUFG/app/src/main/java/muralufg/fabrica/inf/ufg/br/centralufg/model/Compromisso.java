@@ -56,15 +56,15 @@ import java.util.Calendar;
 public class Compromisso {
     private String nome;
     private String descricao;
-    private Calendar date;
+    private Calendar data;
 
     public Compromisso() {
     }
 
-    public Compromisso(String nome, String descricao, Calendar date) {
+    public Compromisso(String nome, String descricao, Calendar data) {
         this.nome = nome;
         this.descricao = descricao;
-        this.date = date;
+        this.data = data;
     }
 
     public String getNome() {
@@ -83,11 +83,11 @@ public class Compromisso {
         this.descricao = descricao;
     }
 
-    public Calendar getDate() {
-        return date;
+    public Calendar getData() {
+        return data;
     }
 
-    public void setDate(Calendar date) {
-        this.date = date;
+    public void setDate(Calendar data) {
+        this.data = data;
     }
 }
