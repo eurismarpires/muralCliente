@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'sonar-runner'
 
 buildscript {
     repositories {
@@ -19,7 +20,7 @@ android {
 
     defaultConfig {
         applicationId "muralufg.fabrica.inf.ufg.br.centralufg"
-        minSdkVersion 10
+        minSdkVersion 14
         targetSdkVersion 20
         versionCode 1
         versionName "1.0"
@@ -31,7 +32,6 @@ android {
         }
     }
 }
-
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -48,4 +48,17 @@ dependencies {
     compile 'com.github.kevinsawicki:http-request:5.6'
     //Feedback visual
     compile 'com.github.castorflex.smoothprogressbar:library:0.5.2'
+
+    //Biblioteca que implementa o CardView usando estilo Material Design
+    compile 'com.android.support:cardview-v7:21.0.+'
+}
+
+sonarRunner {
+    sonarProperties {
+        property "sonar.host.url", "http://my.server.com"
+        property "sonar.jdbc.url", "jdbc:mysql://my.server.com/sonar"
+        property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
+        property "sonar.jdbc.username", "Fred Flintstone"
+        property "sonar.jdbc.password", "very clever"
+    }
 }

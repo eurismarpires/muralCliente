@@ -49,70 +49,41 @@
  * do Instituto de Informática (UFG). Consulte <http://fs.inf.ufg.br>
  * para detalhes.
  */
-package muralufg.fabrica.inf.ufg.br.centralufg.model;
 
+package muralufg.fabrica.inf.ufg.br.centralufg.util;
+
+import android.util.Log;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import muralufg.fabrica.inf.ufg.br.centralufg.util.CalendarFormatter;
+/* Classe responsável pela formatação das datas.
+ */
+public class CalendarFormatter {
 
-public class Compromisso {
-    private int id;
-    private String nome;
-    private String descricao;
-    private Calendar data;
-
-    public Compromisso() {
+    private CalendarFormatter() {
     }
 
-    public Compromisso(int id, String nome, String descricao, String data) {
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        setStringData(data);
+    public static Calendar stringToCalendar(String data){
+        Calendar calendar = Calendar.getInstance();
+        try{
+            SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+            calendar.setTime(formatoData.parse(data));
+            return calendar;
+        } catch (Exception e) {
+            Log.e("Exception", "Exception ocurred", e);
+        }
+        return calendar;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Calendar getData() {
-        return data;
-    }
-
-    public void setDate(Calendar data) {
-        this.data = data;
-    }
-
-    public String getStringData(){
-        return  CalendarFormatter.calendarToString(data);
-    }
-
-    public void setStringData(String data){
-        this.data = CalendarFormatter.stringToCalendar(data);
-    }
-
-    @Override
-    public String toString() {
-        return nome + "    " + getStringData();
+    public static String calendarToString(Calendar calendar){
+        String retorno = "";
+        try {
+            SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+            retorno = formatoData.format(calendar.getTime());
+        } catch (Exception e) {
+            Log.e("Exception", "Exception ocurred", e);
+        }
+        return retorno;
     }
 }

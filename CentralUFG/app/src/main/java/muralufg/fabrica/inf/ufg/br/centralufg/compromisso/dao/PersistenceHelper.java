@@ -49,70 +49,40 @@
  * do Instituto de Informática (UFG). Consulte <http://fs.inf.ufg.br>
  * para detalhes.
  */
-package muralufg.fabrica.inf.ufg.br.centralufg.model;
 
-import java.util.Calendar;
+package muralufg.fabrica.inf.ufg.br.centralufg.compromisso.dao;
 
-import muralufg.fabrica.inf.ufg.br.centralufg.util.CalendarFormatter;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
-public class Compromisso {
-    private int id;
-    private String nome;
-    private String descricao;
-    private Calendar data;
-
-    public Compromisso() {
+public class PersistenceHelper extends SQLiteOpenHelper {
+	 
+    public static final String NOME_BANCO =  "BancoCompromisso";
+    public static final int VERSAO =  1;
+     
+    private static PersistenceHelper instance;
+     
+    private PersistenceHelper(Context context) {
+        super(context, NOME_BANCO, null, VERSAO);
     }
-
-    public Compromisso(int id, String nome, String descricao, String data) {
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        setStringData(data);
+     
+    public static PersistenceHelper getInstance(Context context) {
+        if(instance == null) {
+            instance = new PersistenceHelper(context);
+        }
+        return instance;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Calendar getData() {
-        return data;
-    }
-
-    public void setDate(Calendar data) {
-        this.data = data;
-    }
-
-    public String getStringData(){
-        return  CalendarFormatter.calendarToString(data);
-    }
-
-    public void setStringData(String data){
-        this.data = CalendarFormatter.stringToCalendar(data);
-    }
-
+ 
     @Override
-    public String toString() {
-        return nome + "    " + getStringData();
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(CompromissoDAO.SCRIPT_CRIACAO_TABELA);
     }
+ 
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL(CompromissoDAO.SCRIPT_DELECAO_TABELA);
+        onCreate(db);
+    }
+ 
 }

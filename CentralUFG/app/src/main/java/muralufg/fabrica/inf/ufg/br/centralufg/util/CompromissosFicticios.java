@@ -49,70 +49,46 @@
  * do Instituto de Informática (UFG). Consulte <http://fs.inf.ufg.br>
  * para detalhes.
  */
-package muralufg.fabrica.inf.ufg.br.centralufg.model;
 
-import java.util.Calendar;
+package muralufg.fabrica.inf.ufg.br.centralufg.util;
 
-import muralufg.fabrica.inf.ufg.br.centralufg.util.CalendarFormatter;
+import android.content.Context;
 
-public class Compromisso {
-    private int id;
-    private String nome;
-    private String descricao;
-    private Calendar data;
+import muralufg.fabrica.inf.ufg.br.centralufg.compromisso.dao.CompromissoDAO;
+import muralufg.fabrica.inf.ufg.br.centralufg.model.Compromisso;
 
-    public Compromisso() {
+/* Classe com compromissos fictícios para popular o banco
+ * enquanto ainda não temos o servidor, por enquanto
+ * o servidor que envia a ordem dos compromissos.
+ */
+public class CompromissosFicticios {
+
+    private CompromissosFicticios(){
     }
 
-    public Compromisso(int id, String nome, String descricao, String data) {
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        setStringData(data);
-    }
+	public static void criaCompromissosFicticios(Context context) {
 
-    public int getId() {
-        return id;
-    }
+        Compromisso compromisso1 = new Compromisso(1, "Prova de TACS",
+                "A prova de Técnicas avançadas de construção de software será na sala" +
+                        "106, no centro de aulas A.", "17/10/2014");
+        Compromisso compromisso2 = new Compromisso(2, "Verificar notas da prova TACS",
+                "As notas da prova de Técnicas avançadas de construção de software já estão" +
+                        "disponíveis no Moodle para consulta.", "21/10/2014");
+        Compromisso compromisso3 = new Compromisso(3, "Lembrete de aula",
+                "Lembrete que haverá aula normalmente hoje de Prática em Engenharia" +
+                        "de software.", "21/10/2014");
+        Compromisso compromisso4 = new Compromisso(4, "Não haverá aula",
+                "Lembrete que não haverá aula de Técnicas avançadas de construção de software" +
+                        "no dia 24 de outubro de 2014.", "24/10/2014");
 
-    public void setId(int id) {
-        this.id = id;
-    }
+		CompromissoDAO compromissoDAO = CompromissoDAO.getInstance(context);
 
-    public String getNome() {
-        return nome;
-    }
+        compromissoDAO.deletarTodosCompromissos();
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+        compromissoDAO.salvar(compromisso1);
+        compromissoDAO.salvar(compromisso2);
+        compromissoDAO.salvar(compromisso3);
+        compromissoDAO.salvar(compromisso4);
+	}
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Calendar getData() {
-        return data;
-    }
-
-    public void setDate(Calendar data) {
-        this.data = data;
-    }
-
-    public String getStringData(){
-        return  CalendarFormatter.calendarToString(data);
-    }
-
-    public void setStringData(String data){
-        this.data = CalendarFormatter.stringToCalendar(data);
-    }
-
-    @Override
-    public String toString() {
-        return nome + "    " + getStringData();
-    }
 }
