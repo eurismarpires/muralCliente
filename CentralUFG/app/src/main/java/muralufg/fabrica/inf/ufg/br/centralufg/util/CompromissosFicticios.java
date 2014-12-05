@@ -69,16 +69,16 @@ public class CompromissosFicticios {
 	public static void criaCompromissosFicticios(Context context) {
 
         Compromisso compromisso1 = new Compromisso(1, "Prova de TACS",
-                "A prova de Técnicas avançadas de construção de software será na sala" +
+                "A prova de Técnicas avançadas de construção de software será na sala " +
                         "106, no centro de aulas A.", "17/10/2014");
         Compromisso compromisso2 = new Compromisso(2, "Verificar notas da prova TACS",
-                "As notas da prova de Técnicas avançadas de construção de software já estão" +
+                "As notas da prova de Técnicas avançadas de construção de software já estão " +
                         "disponíveis no Moodle para consulta.", "21/10/2014");
         Compromisso compromisso3 = new Compromisso(3, "Lembrete de aula",
-                "Lembrete que haverá aula normalmente hoje de Prática em Engenharia" +
+                "Lembrete que haverá aula normalmente hoje de Prática em Engenharia " +
                         "de software.", "21/10/2014");
         Compromisso compromisso4 = new Compromisso(4, "Não haverá aula",
-                "Lembrete que não haverá aula de Técnicas avançadas de construção de software" +
+                "Lembrete que não haverá aula de Técnicas avançadas de construção de software " +
                         "no dia 24 de outubro de 2014.", "24/10/2014");
 
 		CompromissoDAO compromissoDAO = CompromissoDAO.getInstance(context);

@@ -56,6 +56,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -69,9 +71,6 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.List;
-
-import de.keyboardsurfer.android.widget.crouton.Crouton;
-import de.keyboardsurfer.android.widget.crouton.Style;
 import muralufg.fabrica.inf.ufg.br.centralufg.R;
 import muralufg.fabrica.inf.ufg.br.centralufg.compromisso.dao.CompromissoDAO;
 import muralufg.fabrica.inf.ufg.br.centralufg.model.Compromisso;
@@ -112,28 +111,14 @@ public class CompromissoFragment extends Fragment {
                                     int posicao, long arg3) {
 
                 Compromisso compromissoClicado = compromissos[posicao];
-                criaEventoNaAgenda(compromissoClicado);
-
-                Toast.makeText(getActivity(), "Enviando " + compromissoClicado.getNome()
-                        + " para a agenda", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), ExibeCompromissoActivity.class);
+                intent.putExtra("data", compromissoClicado.getStringData());
+                intent.putExtra("nome", compromissoClicado.getNome());
+                intent.putExtra("descricao", compromissoClicado.getDescricao());
+                startActivity(intent);
             }
         });
 
         return rootView;
     }
-
-    public void criaEventoNaAgenda(Compromisso compromisso){
-        Calendar beginTime = compromisso.getData();
-        Calendar endTime = compromisso.getData();
-        Intent intent = new Intent(Intent.ACTION_INSERT)
-                .setData(CalendarContract.Events.CONTENT_URI)
-                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
-                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
-                .putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true)
-                .putExtra(CalendarContract.Events.TITLE, compromisso.getNome())
-                .putExtra(CalendarContract.Events.DESCRIPTION, compromisso.getDescricao())
-                .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
-        startActivity(intent);
-    }
-
 }
